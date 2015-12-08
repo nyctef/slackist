@@ -1,23 +1,25 @@
 {
   "version": "1.0.0-*",
   "description": "Slackist Console Application",
-  "authors": [ "" ],
-  "tags": [ "" ],
+  "authors": [
+    ""
+  ],
+  "tags": [
+    ""
+  ],
   "projectUrl": "",
   "licenseUrl": "",
   "tooling": {
     "defaultNamespace": "Slackist"
   },
-
   "dependencies": {
+    "Microsoft.AspNet.WebSockets.Client": "1.0.0-rc1-final"
   },
-
   "commands": {
     "Slackist": "Slackist"
   },
-
   "frameworks": {
-    "dnx451": { },
+    "dnx451": {},
     "dnxcore50": {
       "dependencies": {
         "Microsoft.CSharp": "4.0.1-beta-23516",
