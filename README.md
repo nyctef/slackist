@@ -10,10 +10,13 @@
   - `npm install npm install -g yo bower grunt-cli gulp`
   - `npm install -g generator-aspnet`
   - `yo aspnet`
-    - Chose an empty project
+    - Chose a console project
 - started building the project:
   - `cd Slackist`
   - `dnu restore`
   - `dnu build`
   - `dnx web` - this runs the webapp and blocks
+- poking around:
+  - need to figure out what all the bits in project.(lock.)json mean
+
 
