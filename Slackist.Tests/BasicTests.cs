@@ -1,5 +1,6 @@
 using Xunit;
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Net.Http;
 using System.Net.WebSockets;
@@ -7,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Slackist.Utils;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 public class Tests
@@ -57,6 +59,30 @@ public class Tests
                     break;
                 }
             }
+        }
+    }
+
+    [Fact]
+    public async Task CanPostTaskToTodoist()
+    {
+        var cts = new CancellationTokenSource();
+        var token = cts.Token;
+
+        var todoistApiToken = Environment.GetEnvironmentVariable("TODOIST_TOKEN");
+        todoistApiToken.Should().NotBeNull("we need an API token to connect to Todoist");
+
+        using (var webClient = new HttpClient())
+        {
+            var commands = JsonConvert.SerializeObject(new [] {
+                    new {type="item_add", uuid= Guid.NewGuid(), temp_id= Guid.NewGuid(),
+                    args=new {content="This is test item "+Guid.NewGuid(), date_string="today"}}});
+            var url = "https://todoist.com/API/v6/sync";
+
+            var response = await webClient.PostAsync(url, new FormUrlEncodedContent(new Dictionary<string, string>() {
+                    { "token", todoistApiToken },
+                    { "commands", commands },
+                        }));
+
         }
     }
 
