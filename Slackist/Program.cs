@@ -17,8 +17,10 @@ namespace Slackist
         {
             if (args.Length != 2)
             {
-                Console.Error.WriteLine("Usage: slackist [slack_api_token] [todoist_api_token]");
-                Environment.Exit(1);
+                var usage = "Usage: slackist [slack_api_token] [todoist_api_token]";
+                Console.Error.WriteLine(usage);
+                //Environment.Exit(1);
+                Environment.FailFast(usage);
             }
 
             var slackApiToken = args[0];
