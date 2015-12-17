@@ -70,20 +70,9 @@ public class Tests
 
         var todoistApiToken = Environment.GetEnvironmentVariable("TODOIST_TOKEN");
         todoistApiToken.Should().NotBeNull("we need an API token to connect to Todoist");
+        var api = new TodoistApi(todoistApiToken);
 
-        using (var webClient = new HttpClient())
-        {
-            var commands = JsonConvert.SerializeObject(new [] {
-                    new {type="item_add", uuid= Guid.NewGuid(), temp_id= Guid.NewGuid(),
-                    args=new {content="This is test item "+Guid.NewGuid(), date_string="today"}}});
-            var url = "https://todoist.com/API/v6/sync";
-
-            var response = await webClient.PostAsync(url, new FormUrlEncodedContent(new Dictionary<string, string>() {
-                    { "token", todoistApiToken },
-                    { "commands", commands },
-                        }));
-
-        }
+        await api.CreateTask("This is test item "+Guid.NewGuid(), "today", token);
     }
 
 }
